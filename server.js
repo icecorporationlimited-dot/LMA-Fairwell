@@ -445,7 +445,7 @@ app.get("/health", async (_req, res) => {
 });
 
 /* SPA fallback */
-app.get("*", (_req, res) => {
+app.get("/{*splat}", (req, res) => {
   res.sendFile("index.html", { root: "public" });
 });
 
