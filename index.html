@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101010">
+  <title>LMA Farewell 2026–27 | Pass Portal</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="toast" class="toast"></div>
+
+  <header class="topbar">
+    <a class="brand" href="/">
+      <span class="brand-mark">LMA</span>
+      <span><b>Lord Mahavira Academy</b><small>Farewell 2026–27</small></span>
+    </a>
+    <button id="logoutBtn" class="ghost hidden">Logout</button>
+  </header>
+
+  <main>
+    <section id="landing" class="page">
+      <div class="hero">
+        <div class="eyebrow">OFFICIAL STUDENT PORTAL · 2026–27</div>
+        <h1>One last night.<br><span>One final pass.</span></h1>
+        <p>Apply for your Lord Mahavira Academy Farewell pass, track approval, and download your digital pass from one portal.</p>
+        <div class="actions">
+          <button class="primary" data-view="login">Student Login</button>
+          <button class="secondary" data-view="register">Create Account</button>
+        </div>
+      </div>
+      <div class="event-strip">
+        <div><small>EVENT</small><strong>FAREWELL 2026–27</strong></div>
+        <div><small>PORTAL</small><strong>STUDENT PASS</strong></div>
+        <div><small>STATUS</small><strong>ONLINE</strong></div>
+      </div>
+    </section>
+
+    <section id="auth" class="page hidden">
+      <div class="card auth-card">
+        <button class="back" data-view="landing">← Back</button>
+
+        <div id="loginPanel">
+          <div class="eyebrow">STUDENT PORTAL</div>
+          <h2>Welcome back.</h2>
+          <p class="muted">Login to manage your farewell application and pass.</p>
+          <form id="loginForm">
+            <label>Email<input id="loginEmail" type="email" required autocomplete="email"></label>
+            <label>Password<input id="loginPassword" type="password" required autocomplete="current-password"></label>
+            <button class="primary wide">Login</button>
+          </form>
+          <p class="switch">New here? <button type="button" data-auth="register">Create account</button></p>
+        </div>
+
+        <div id="registerPanel" class="hidden">
+          <div class="eyebrow">NEW STUDENT</div>
+          <h2>Create your account.</h2>
+          <p class="muted">Use an email you can access for your portal.</p>
+          <form id="registerForm">
+            <label>Full Name<input id="regName" required maxlength="80"></label>
+            <label>Email<input id="regEmail" type="email" required autocomplete="email"></label>
+            <label>Password<input id="regPassword" type="password" minlength="8" required autocomplete="new-password"></label>
+            <button class="primary wide">Create Account</button>
+          </form>
+          <p class="switch">Already registered? <button type="button" data-auth="login">Login</button></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="dashboard" class="page hidden">
+      <div class="dashboard-head">
+        <div><div class="eyebrow">STUDENT DASHBOARD</div><h2 id="welcomeName">Welcome</h2></div>
+        <span id="roleBadge" class="badge">STUDENT</span>
+      </div>
+
+      <div class="grid">
+        <div class="card status-card">
+          <div class="card-top"><span>APPLICATION</span><span id="statusBadge" class="status pending">NOT SUBMITTED</span></div>
+          <h3 id="statusTitle">Your pass application</h3>
+          <p id="statusText" class="muted">Submit your details to start.</p>
+          <button id="applyBtn" class="primary">Fill Pass Details</button>
+        </div>
+
+        <div class="card pass-card hidden" id="passCard">
+          <div class="card-top"><span>YOUR DIGITAL PASS</span><span class="status approved">APPROVED</span></div>
+          <div id="passMini"></div>
+          <button id="downloadBtn" class="primary wide">Open & Download Pass</button>
+        </div>
+      </div>
+
+      <div id="applicationCard" class="card hidden">
+        <div class="card-top"><span>PASS APPLICATION</span><span>2026–27</span></div>
+        <form id="applicationForm" class="form-grid">
+          <label>Student Name<input id="studentName" required maxlength="80"></label>
+          <label>Class<input id="studentClass" required maxlength="30" placeholder="e.g. XII"></label>
+          <label>Section<input id="section" required maxlength="10" placeholder="e.g. A"></label>
+          <label>Roll Number<input id="rollNumber" required maxlength="30"></label>
+          <label>Student ID <span class="optional">optional</span><input id="studentId" maxlength="50"></label>
+          <label>Phone <span class="optional">optional</span><input id="phone" inputmode="tel" maxlength="15"></label>
+          <label>Guest Count<input id="guestCount" type="number" min="0" max="5" value="0" required></label>
+          <label>Photo URL <span class="optional">optional</span><input id="photoUrl" type="url" placeholder="https://..."></label>
+          <label class="full">Special Note <span class="optional">optional</span><textarea id="note" maxlength="300"></textarea></label>
+          <div class="full form-actions">
+            <button type="button" id="cancelApply" class="secondary">Cancel</button>
+            <button class="primary">Submit Application</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="admin" class="page hidden">
+      <div class="dashboard-head">
+        <div><div class="eyebrow">ADMIN CONTROL</div><h2>Farewell applications</h2></div>
+        <button id="refreshAdmin" class="secondary">Refresh</button>
+      </div>
+
+      <div class="admin-stats">
+        <div class="stat"><small>TOTAL</small><b id="totalStat">0</b></div>
+        <div class="stat"><small>PENDING</small><b id="pendingStat">0</b></div>
+        <div class="stat"><small>APPROVED</small><b id="approvedStat">0</b></div>
+        <div class="stat"><small>REJECTED</small><b id="rejectedStat">0</b></div>
+      </div>
+
+      <div class="card table-card"><div id="adminTable" class="table-wrap"></div></div>
+    </section>
+
+    <section id="passPage" class="page hidden">
+      <div class="pass-toolbar"><button class="back" id="backDashboard">← Dashboard</button></div>
+      <div id="passPrintable" class="pass"></div>
+      <div class="center"><button id="downloadPass2" class="primary">Download Pass</button></div>
+    </section>
+  </main>
+
+  <footer>Lord Mahavira Academy · Farewell 2026–27 · Student Pass Portal</footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
